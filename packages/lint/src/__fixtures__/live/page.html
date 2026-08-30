@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>webmcp-lint live-mode fixture</title>
+  </head>
+  <body>
+    <p>
+      Fixture page for webmcp-lint's live mode. Registers two tools directly against
+      document.modelContext, which the test harness provides via page.addInitScript (the polyfill)
+      before this script runs.
+    </p>
+    <script>
+      document.modelContext.registerTool({
+        name: 'find_products',
+        description: 'Finds products in the catalog matching a free-text query string.',
+        inputSchema: {
+          type: 'object',
+          properties: { q: { type: 'string' } },
+          required: ['q'],
+          additionalProperties: false,
+        },
+        annotations: { readOnlyHint: true },
+        execute: async () => ({ results: [] }),
+      });
+
+      document.modelContext.registerTool({
+        name: 'get_shipping_rates',
+        description:
+          'Returns available shipping rates for the current cart based on destination postal code.',
+        inputSchema: {
+          type: 'object',
+          properties: { postalCode: { type: 'string' } },
+          required: ['postalCode'],
+          additionalProperties: false,
+        },
+        annotations: { readOnlyHint: true },
+        execute: async () => ({ rates: [] }),
+      });
+    </script>
+  </body>
+</html>

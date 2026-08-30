@@ -1,0 +1,30 @@
+name: 'webmcp-lint'
+description: "Check a site's WebMCP tool registrations against the canonical webmcp-schemas registry."
+inputs:
+  mode:
+    description: 'static (scan source via a glob) or live (launch a browser against a URL)'
+    required: true
+  target:
+    description: 'A glob (static mode) or URL (live mode)'
+    required: true
+  format:
+    description: 'Output format: human or json'
+    required: false
+    default: 'human'
+  version:
+    description: 'Version of @webmcp-schemas/lint to run (npm dist-tag or version range)'
+    required: false
+    default: 'latest'
+runs:
+  using: 'composite'
+  steps:
+    - name: Install Playwright's Chromium (live mode only)
+      if: inputs.mode == 'live'
+      shell: bash
+      run: npx --yes playwright install --with-deps chromium
+
+    - name: Run webmcp-lint
+      shell: bash
+      run: >
+        npx --yes "@webmcp-schemas/lint@${{ inputs.version }}"
+        "${{ inputs.mode }}" "${{ inputs.target }}" --format "${{ inputs.format }}"
