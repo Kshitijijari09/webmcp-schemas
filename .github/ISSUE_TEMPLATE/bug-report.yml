@@ -1,0 +1,38 @@
+name: Bug report
+description: Something in a published package, the linter, or the demo doesn't work as documented.
+labels: ['bug']
+body:
+  - type: dropdown
+    id: package
+    attributes:
+      label: Which package?
+      options:
+        - '@webmcp-schemas/schemas'
+        - '@webmcp-schemas/runtime'
+        - '@webmcp-schemas/lint'
+        - storefront-demo
+        - Other / not sure
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Minimal steps to reproduce
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Package version (or commit SHA if running from source)

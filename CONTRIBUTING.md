@@ -36,7 +36,9 @@ A PR adding or changing a canonical tool is checked against:
   LLM choosing between this vertical's tools with no other context —
   not just a description of what the tool does, but why you'd pick it
   over its closest siblings. Reviewers will ask you to strengthen this
-  if it doesn't clearly separate your tool from similar ones.
+  if it doesn't clearly separate your tool from similar ones. See
+  [`SCHEMA_STYLE.md`](SCHEMA_STYLE.md) for how to write one that
+  passes this bar, with real before/after examples.
 - **Correct annotations.** Reads get `readOnlyHint: true`. Anything
   with a real-world side effect a user would want to confirm before it
   runs gets `requiresConfirmation: true`.

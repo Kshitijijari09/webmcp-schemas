@@ -105,14 +105,18 @@ the reasoning behind that pace.
    propose a new verb in the PR description if none fits.
 3. Write the `description` as guidance for an LLM choosing between
    tools — it must disambiguate your tool from its siblings in the
-   same vertical, not just describe what it does.
+   same vertical, not just describe what it does. See
+   [`SCHEMA_STYLE.md`](SCHEMA_STYLE.md) for concrete before/after
+   examples of what makes a description disambiguate well.
 4. Mark reads `readOnlyHint: true`; mark anything with a real-world
    side effect `requiresConfirmation: true`.
 5. Run `pnpm --filter @webmcp-schemas/schemas test` — it validates
    every canonical file against the meta-schema and every example
    against its own schema.
 
-See [`CONTRIBUTING.md`](CONTRIBUTING.md) for the full review rubric.
+See [`CONTRIBUTING.md`](CONTRIBUTING.md) for the full review rubric
+and [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md) for community
+standards.
 
 ## Status
 

@@ -1,0 +1,30 @@
+name: Propose a new vertical
+description: Propose a new industry vertical (e.g. travel, restaurants, banking).
+labels: ['new-vertical']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        See CONTRIBUTING.md's "Proposing a new vertical" section — a
+        new vertical is a bigger unit of work than a single tool, so
+        this issue is meant to align on scope *before* anyone writes
+        schemas, to avoid duplicated or conflicting work.
+  - type: input
+    id: vertical-name
+    attributes:
+      label: Vertical name
+      placeholder: travel
+    validations:
+      required: true
+  - type: textarea
+    id: tool-list
+    attributes:
+      label: Proposed initial tool list
+      description: A short list of the first tools this vertical would ship with (name + one-line purpose each), similar in scope to retail's 7-tool seed set.
+    validations:
+      required: true
+  - type: textarea
+    id: prior-art
+    attributes:
+      label: Prior art
+      description: Are there existing conventions in this industry (e.g. an existing API standard) this vertical's naming should align with, or explicitly diverge from?

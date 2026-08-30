@@ -1,0 +1,46 @@
+name: Propose a new canonical tool
+description: Propose adding a tool to an existing vertical (e.g. a new retail tool).
+labels: ['new-tool']
+body:
+  - type: input
+    id: vertical
+    attributes:
+      label: Vertical
+      description: Which existing vertical does this belong to?
+      placeholder: retail
+    validations:
+      required: true
+  - type: input
+    id: tool-name
+    attributes:
+      label: Proposed tool name
+      description: verb_noun, snake_case. See CONTRIBUTING.md for the controlled verb vocabulary.
+      placeholder: cancel_order
+    validations:
+      required: true
+  - type: textarea
+    id: purpose
+    attributes:
+      label: What does this tool do, and why doesn't an existing tool in the vertical already cover it?
+      description: Name the closest existing tool(s) and explain the gap.
+    validations:
+      required: true
+  - type: textarea
+    id: shape
+    attributes:
+      label: Rough input/output shape
+      description: Doesn't need to be final JSON Schema yet — just the fields you expect.
+      placeholder: |
+        input: { orderId: string, reason: enum }
+        output: { orderId: string, status: string }
+    validations:
+      required: true
+  - type: dropdown
+    id: side-effect
+    attributes:
+      label: Does this tool have a real-world side effect a user should confirm before it runs?
+      options:
+        - 'No — read-only'
+        - 'Yes — requires confirmation'
+    validations:
+      required: true
