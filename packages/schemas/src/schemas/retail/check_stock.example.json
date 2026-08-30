@@ -1,0 +1,13 @@
+{
+  "input": {
+    "productId": "sku_10432",
+    "quantity": 1,
+    "postalCode": "94103"
+  },
+  "output": {
+    "productId": "sku_10432",
+    "inStock": false,
+    "availableQuantity": 0,
+    "estimatedRestockDate": "2026-09-15"
+  }
+}

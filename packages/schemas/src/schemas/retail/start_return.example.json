@@ -1,0 +1,16 @@
+{
+  "input": {
+    "orderId": "order_5521",
+    "items": [{ "productId": "sku_10432", "quantity": 1 }],
+    "reason": "wrong_item"
+  },
+  "output": {
+    "returnId": "ret_3391",
+    "status": "initiated",
+    "estimatedRefund": {
+      "amount": 114.5,
+      "currency": "USD"
+    },
+    "returnLabelUrl": "https://example.com/returns/ret_3391/label"
+  }
+}

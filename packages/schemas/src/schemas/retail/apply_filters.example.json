@@ -1,0 +1,19 @@
+{
+  "input": {
+    "category": "footwear",
+    "minRating": 4,
+    "inStockOnly": true
+  },
+  "output": {
+    "totalCount": 1,
+    "results": [
+      {
+        "productId": "sku_10231",
+        "name": "Trailrunner Low",
+        "price": 89.99,
+        "currency": "USD",
+        "inStock": true
+      }
+    ]
+  }
+}

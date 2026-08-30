@@ -1,0 +1,15 @@
+{
+  "input": {
+    "cartId": "cart_88f2",
+    "code": "WELCOME10"
+  },
+  "output": {
+    "cartId": "cart_88f2",
+    "applied": true,
+    "discountAmount": {
+      "amount": 18.0,
+      "currency": "USD"
+    },
+    "message": "10% off applied."
+  }
+}

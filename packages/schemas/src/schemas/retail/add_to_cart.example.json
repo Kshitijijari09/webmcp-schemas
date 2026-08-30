@@ -1,0 +1,15 @@
+{
+  "input": {
+    "productId": "sku_10231",
+    "quantity": 2
+  },
+  "output": {
+    "cartId": "cart_88f2",
+    "lineItemId": "li_001",
+    "quantity": 2,
+    "cartTotal": {
+      "amount": 179.98,
+      "currency": "USD"
+    }
+  }
+}

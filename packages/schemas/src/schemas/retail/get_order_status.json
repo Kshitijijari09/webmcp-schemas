@@ -1,0 +1,36 @@
+{
+  "id": "retail.get_order_status",
+  "name": "get_order_status",
+  "title": "Get order status",
+  "description": "Look up the current status of a previously placed order by orderId — read-only, does not modify the order. Use start_return instead if the user wants to return items from a delivered order rather than just check where it is.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "orderId": { "type": "string", "minLength": 1 }
+    },
+    "required": ["orderId"],
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "type": "object",
+    "properties": {
+      "orderId": { "type": "string" },
+      "status": {
+        "type": "string",
+        "enum": ["pending", "processing", "shipped", "delivered", "cancelled", "returned"]
+      },
+      "estimatedDelivery": { "type": "string", "format": "date" },
+      "trackingNumber": { "type": "string" },
+      "trackingUrl": { "type": "string", "format": "uri" }
+    },
+    "required": ["orderId", "status"],
+    "additionalProperties": false
+  },
+  "annotations": {
+    "readOnlyHint": true,
+    "untrustedContentHint": false,
+    "requiresConfirmation": false
+  },
+  "stability": "draft",
+  "version": "0.1.0"
+}

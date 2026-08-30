@@ -1,0 +1,41 @@
+{
+  "id": "retail.apply_promo_code",
+  "name": "apply_promo_code",
+  "title": "Apply promo code",
+  "description": "Apply a promotional or discount code to an existing cart, identified by cartId. This changes the cart's total, so it requires user confirmation before it runs. Distinct from add_to_cart (which adds items) and start_return (which returns already-ordered items); this only ever discounts an existing cart.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "cartId": { "type": "string", "minLength": 1 },
+      "code": { "type": "string", "minLength": 1 }
+    },
+    "required": ["cartId", "code"],
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "type": "object",
+    "properties": {
+      "cartId": { "type": "string" },
+      "applied": { "type": "boolean" },
+      "discountAmount": {
+        "type": "object",
+        "properties": {
+          "amount": { "type": "number", "minimum": 0 },
+          "currency": { "type": "string" }
+        },
+        "required": ["amount", "currency"],
+        "additionalProperties": false
+      },
+      "message": { "type": "string" }
+    },
+    "required": ["cartId", "applied"],
+    "additionalProperties": false
+  },
+  "annotations": {
+    "readOnlyHint": false,
+    "untrustedContentHint": false,
+    "requiresConfirmation": true
+  },
+  "stability": "draft",
+  "version": "0.1.0"
+}

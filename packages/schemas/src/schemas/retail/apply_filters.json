@@ -1,0 +1,49 @@
+{
+  "id": "retail.apply_filters",
+  "name": "apply_filters",
+  "title": "Apply filters",
+  "description": "Narrow the current product listing using structured filters (category, brand, price range, minimum rating, in-stock only) without changing the search term. Use this after search_products when refining an existing result set with facets; use search_products directly instead if the user wants a different search term, not just narrower results.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "category": { "type": "string" },
+      "brand": { "type": "string" },
+      "minPrice": { "type": "number", "minimum": 0 },
+      "maxPrice": { "type": "number", "minimum": 0 },
+      "minRating": { "type": "number", "minimum": 0, "maximum": 5 },
+      "inStockOnly": { "type": "boolean" }
+    },
+    "required": [],
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "type": "object",
+    "properties": {
+      "totalCount": { "type": "integer", "minimum": 0 },
+      "results": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "productId": { "type": "string" },
+            "name": { "type": "string" },
+            "price": { "type": "number", "minimum": 0 },
+            "currency": { "type": "string" },
+            "inStock": { "type": "boolean" }
+          },
+          "required": ["productId", "name", "price", "currency", "inStock"],
+          "additionalProperties": false
+        }
+      }
+    },
+    "required": ["totalCount", "results"],
+    "additionalProperties": false
+  },
+  "annotations": {
+    "readOnlyHint": true,
+    "untrustedContentHint": false,
+    "requiresConfirmation": false
+  },
+  "stability": "draft",
+  "version": "0.1.0"
+}

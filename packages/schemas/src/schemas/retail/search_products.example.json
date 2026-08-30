@@ -1,0 +1,27 @@
+{
+  "input": {
+    "query": "running shoes",
+    "category": "footwear",
+    "maxPrice": 120,
+    "sortBy": "price_asc"
+  },
+  "output": {
+    "totalCount": 2,
+    "results": [
+      {
+        "productId": "sku_10231",
+        "name": "Trailrunner Low",
+        "price": 89.99,
+        "currency": "USD",
+        "inStock": true
+      },
+      {
+        "productId": "sku_10432",
+        "name": "Roadglide Pro",
+        "price": 114.5,
+        "currency": "USD",
+        "inStock": false
+      }
+    ]
+  }
+}

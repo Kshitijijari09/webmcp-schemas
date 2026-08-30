@@ -1,0 +1,51 @@
+{
+  "id": "retail.search_products",
+  "name": "search_products",
+  "title": "Search products",
+  "description": "Search the store's product catalog by free-text query, with optional price and category filters. Use this first when you don't yet know a specific product's ID or exact name. Use check_stock instead once you already have a productId and only need to know availability. Use apply_filters instead of repeating this call if you just need to narrow the current results without changing the search term.",
+  "inputSchema": {
+    "type": "object",
+    "properties": {
+      "query": { "type": "string", "minLength": 1 },
+      "category": { "type": "string" },
+      "minPrice": { "type": "number", "minimum": 0 },
+      "maxPrice": { "type": "number", "minimum": 0 },
+      "sortBy": {
+        "type": "string",
+        "enum": ["relevance", "price_asc", "price_desc", "rating"]
+      }
+    },
+    "required": ["query"],
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "type": "object",
+    "properties": {
+      "totalCount": { "type": "integer", "minimum": 0 },
+      "results": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "productId": { "type": "string" },
+            "name": { "type": "string" },
+            "price": { "type": "number", "minimum": 0 },
+            "currency": { "type": "string" },
+            "inStock": { "type": "boolean" }
+          },
+          "required": ["productId", "name", "price", "currency", "inStock"],
+          "additionalProperties": false
+        }
+      }
+    },
+    "required": ["totalCount", "results"],
+    "additionalProperties": false
+  },
+  "annotations": {
+    "readOnlyHint": true,
+    "untrustedContentHint": false,
+    "requiresConfirmation": false
+  },
+  "stability": "draft",
+  "version": "0.1.0"
+}

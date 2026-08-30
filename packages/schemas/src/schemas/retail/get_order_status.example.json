@@ -1,0 +1,12 @@
+{
+  "input": {
+    "orderId": "order_5521"
+  },
+  "output": {
+    "orderId": "order_5521",
+    "status": "shipped",
+    "estimatedDelivery": "2026-09-02",
+    "trackingNumber": "1Z999AA10123456784",
+    "trackingUrl": "https://example.com/track/1Z999AA10123456784"
+  }
+}
