@@ -1,0 +1,20 @@
+{
+  "name": "storefront-demo",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@mcp-b/webmcp-polyfill": "^5.0.1",
+    "@webmcp-schemas/runtime": "workspace:*",
+    "@webmcp-schemas/schemas": "workspace:*"
+  },
+  "devDependencies": {
+    "vite": "^8.2.2"
+  }
+}

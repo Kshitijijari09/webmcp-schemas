@@ -1,0 +1,36 @@
+{
+  "name": "@webmcp-schemas/runtime",
+  "version": "0.0.0",
+  "description": "Registers canonical WebMCP schemas on top of the WebMCP polyfill (registerCanonical and friends).",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "@mcp-b/webmcp-polyfill": "*"
+  },
+  "peerDependenciesMeta": {
+    "@mcp-b/webmcp-polyfill": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "@webmcp-schemas/schemas": "workspace:*"
+  }
+}
