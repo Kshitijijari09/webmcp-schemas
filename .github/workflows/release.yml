@@ -45,6 +45,23 @@ jobs:
 
       - run: pnpm run test
 
+      # The `secrets` context can't be referenced directly in an `if:`
+      # condition (GitHub Actions rejects the workflow file entirely if you
+      # try - caught by actionlint, not by plain YAML validation). Route it
+      # through env: on a run step instead (secrets ARE allowed in env:),
+      # writing only a derived true/false to GITHUB_OUTPUT - never the
+      # secret value itself - then gate the next step on that output.
+      - name: Check whether NPM_TOKEN is set
+        id: check_npm_token
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          if [ -n "$NPM_TOKEN" ]; then
+            echo "has_token=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_token=false" >> "$GITHUB_OUTPUT"
+          fi
+
       # changesets/action's publish step tries to publish any package
       # version not yet in the npm registry on every push to master,
       # regardless of whether a changeset exists - not just when a
@@ -53,7 +70,7 @@ jobs:
       # whole step until that secret exists, rather than failing on every
       # commit in the meantime.
       - name: Create release PR or publish to npm
-        if: ${{ secrets.NPM_TOKEN != '' }}
+        if: steps.check_npm_token.outputs.has_token == 'true'
         uses: changesets/action@v1
         with:
           publish: pnpm release
