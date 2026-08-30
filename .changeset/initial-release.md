@@ -1,0 +1,11 @@
+---
+'@webmcp-schemas/schemas': minor
+'@webmcp-schemas/runtime': minor
+'@webmcp-schemas/lint': minor
+---
+
+Initial public release.
+
+- `@webmcp-schemas/schemas`: canonical JSON Schema registry, seeded with the retail vertical (`search_products`, `apply_filters`, `check_stock`, `add_to_cart`, `apply_promo_code`, `get_order_status`, `start_return`).
+- `@webmcp-schemas/runtime`: `registerCanonical`, `registerPack`, `extendCanonical` — registers canonical tools on top of `@mcp-b/webmcp-polyfill`.
+- `@webmcp-schemas/lint`: `webmcp-lint` CLI (static and live modes) for checking a site's registered tools against the canonical registry.
