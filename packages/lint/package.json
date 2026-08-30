@@ -1,6 +1,6 @@
 {
   "name": "@webmcp-schemas/lint",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "webmcp-lint: checks a site's WebMCP tool registrations against the canonical schema registry.",
   "license": "MIT",
   "type": "module",
