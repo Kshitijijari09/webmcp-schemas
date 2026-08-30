@@ -1,6 +1,6 @@
 {
   "name": "@webmcp-schemas/schemas",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Canonical JSON Schema registry for WebMCP tools, organised by industry vertical.",
   "license": "MIT",
   "type": "module",

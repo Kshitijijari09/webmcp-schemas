@@ -1,6 +1,6 @@
 {
   "name": "@webmcp-schemas/runtime",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Registers canonical WebMCP schemas on top of the WebMCP polyfill (registerCanonical and friends).",
   "license": "MIT",
   "type": "module",
