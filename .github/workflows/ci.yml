@@ -31,10 +31,16 @@ jobs:
 
       - run: pnpm --filter @webmcp-schemas/lint exec playwright install --with-deps chromium
 
+      # Build first: packages/runtime and storefront-demo resolve
+      # @webmcp-schemas/schemas via its built dist/ output (declared
+      # types/exports), which doesn't exist yet on a fresh checkout. Running
+      # typecheck/coverage before build fails with "Cannot find module
+      # '@webmcp-schemas/schemas'" - verified by reproducing locally with a
+      # clean tree (no dist/ anywhere).
+      - run: pnpm run build
+
       - run: pnpm run lint
 
       - run: pnpm run typecheck
 
       - run: pnpm run coverage
-
-      - run: pnpm run build

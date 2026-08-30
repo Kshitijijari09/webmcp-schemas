@@ -34,6 +34,11 @@ jobs:
 
       - run: pnpm --filter @webmcp-schemas/lint exec playwright install --with-deps chromium
 
+      # Build first - see the comment in ci.yml: packages/runtime and
+      # storefront-demo resolve @webmcp-schemas/schemas via its built dist/
+      # output, which doesn't exist on a fresh checkout.
+      - run: pnpm run build
+
       - run: pnpm run lint
 
       - run: pnpm run typecheck
