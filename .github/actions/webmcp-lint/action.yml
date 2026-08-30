@@ -25,6 +25,9 @@ runs:
 
     - name: Run webmcp-lint
       shell: bash
-      run: >
-        npx --yes "@webmcp-schemas/lint@${{ inputs.version }}"
-        "${{ inputs.mode }}" "${{ inputs.target }}" --format "${{ inputs.format }}"
+      env:
+        LINT_MODE: ${{ inputs.mode }}
+        LINT_TARGET: ${{ inputs.target }}
+        LINT_FORMAT: ${{ inputs.format }}
+        LINT_VERSION: ${{ inputs.version }}
+      run: npx --yes "@webmcp-schemas/lint@$LINT_VERSION" "$LINT_MODE" "$LINT_TARGET" --format "$LINT_FORMAT"
