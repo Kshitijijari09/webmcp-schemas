@@ -26,9 +26,11 @@
     "generate": "node scripts/generate-ts-mirrors.mjs",
     "prebuild": "pnpm generate",
     "pretest": "pnpm generate",
+    "precoverage": "pnpm generate",
     "pretypecheck": "pnpm generate",
     "build": "tsup",
     "test": "vitest run",
+    "coverage": "vitest run --coverage",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
