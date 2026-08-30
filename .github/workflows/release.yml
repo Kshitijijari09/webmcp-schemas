@@ -45,7 +45,15 @@ jobs:
 
       - run: pnpm run test
 
+      # changesets/action's publish step tries to publish any package
+      # version not yet in the npm registry on every push to master,
+      # regardless of whether a changeset exists - not just when a
+      # "Version Packages" PR is merged. Without this guard, every push
+      # fails loudly with a 404 until NPM_TOKEN is actually set. Skip the
+      # whole step until that secret exists, rather than failing on every
+      # commit in the meantime.
       - name: Create release PR or publish to npm
+        if: ${{ secrets.NPM_TOKEN != '' }}
         uses: changesets/action@v1
         with:
           publish: pnpm release
