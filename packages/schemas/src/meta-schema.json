@@ -1,0 +1,60 @@
+{
+  "$id": "https://webmcp-schemas.dev/meta/canonical-tool.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Canonical WebMCP tool envelope",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]*\\.[a-z][a-z0-9_]*$"
+    },
+    "name": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]*$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "description": {
+      "type": "string",
+      "minLength": 20
+    },
+    "inputSchema": {
+      "type": "object"
+    },
+    "outputSchema": {
+      "type": "object"
+    },
+    "annotations": {
+      "type": "object",
+      "properties": {
+        "readOnlyHint": { "type": "boolean" },
+        "untrustedContentHint": { "type": "boolean" },
+        "requiresConfirmation": { "type": "boolean" }
+      },
+      "required": ["readOnlyHint", "untrustedContentHint", "requiresConfirmation"],
+      "additionalProperties": false
+    },
+    "stability": {
+      "type": "string",
+      "enum": ["draft", "stable"]
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "title",
+    "description",
+    "inputSchema",
+    "outputSchema",
+    "annotations",
+    "stability",
+    "version"
+  ],
+  "additionalProperties": false
+}
