@@ -63,7 +63,9 @@ webmcp-schemas/
 ## Constraints (non-negotiable)
 
 - TypeScript, pnpm workspaces, ESM-first with a CJS build (tsup),
-  Node 20+.
+  Node 22.13+. (Originally targeted Node 20+; raised after discovering
+  in CI that the pinned `packageManager: pnpm@11.24.0` itself requires
+  Node ≥22.13 — pnpm's own floor, not a project choice.)
 - **Zero third-party runtime dependencies** in `packages/schemas` and
   `packages/runtime` — the two packages that ship to browsers.
   `@mcp-b/webmcp-polyfill` is a `peerDependency` of `runtime`, never a
