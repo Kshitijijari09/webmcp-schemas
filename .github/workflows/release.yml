@@ -71,7 +71,7 @@ jobs:
       # commit in the meantime.
       - name: Create release PR or publish to npm
         if: steps.check_npm_token.outputs.has_token == 'true'
-        uses: changesets/action@v1
+        uses: changesets/action@v2
         with:
           publish: pnpm release
         env:
