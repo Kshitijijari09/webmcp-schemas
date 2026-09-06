@@ -10,7 +10,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@mcp-b/webmcp-polyfill": "^5.0.1",
+    "@mcp-b/webmcp-polyfill": "^5.1.0",
     "@webmcp-schemas/runtime": "workspace:*",
     "@webmcp-schemas/schemas": "workspace:*"
   },

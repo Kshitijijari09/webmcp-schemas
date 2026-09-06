@@ -27,10 +27,10 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@mcp-b/webmcp-polyfill": "^5.0.1",
+    "@mcp-b/webmcp-polyfill": "^5.1.0",
     "@webmcp-schemas/schemas": "workspace:*",
     "fast-glob": "^3.3.3",
     "playwright": "^1.62.1",
-    "typescript": "^5.9.3"
+    "typescript": "^7.0.2"
   }
 }
