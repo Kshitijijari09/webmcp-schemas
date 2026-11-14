@@ -1,5 +1,16 @@
 # @webmcp-schemas/runtime
 
+## 0.2.0
+
+### Minor Changes
+
+- 5c83dee: Release readiness: add package metadata (repository, homepage, bugs, keywords, engines), publish to npm with provenance via trusted publishing, fix type resolution for CommonJS consumers, and add SECURITY.md plus 0.x stability notes to the READMEs.
+
+### Patch Changes
+
+- Updated dependencies [5c83dee]
+  - @webmcp-schemas/schemas@0.2.0
+
 ## 0.1.0
 
 ### Minor Changes
