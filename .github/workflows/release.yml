@@ -8,73 +8,100 @@ concurrency:
   group: release-${{ github.workflow }}
   cancel-in-progress: false
 
-permissions:
-  contents: write
-  pull-requests: write
-  id-token: write
+# Least privilege: nothing by default; each job requests only what it needs.
+permissions: {}
+
+# Publishing uses npm trusted publishing (OIDC): there is no NPM_TOKEN and no
+# NODE_AUTH_TOKEN anywhere. Each package must have a trusted publisher
+# configured on npmjs.com for this repository and the workflow file
+# `release.yml` (the filename is case-sensitive). pnpm attaches provenance
+# automatically when publishing from a public repository via OIDC.
+#
+# Tests and lint are deliberately not repeated here: ci.yml gates ordinary
+# PRs that lead to a publish.
+#
+# CAVEAT: the "Version Packages" PR is opened with GITHUB_TOKEN, and GitHub
+# does not trigger pull_request workflows for events caused by GITHUB_TOKEN.
+# ci.yml therefore will NOT run on that PR by itself, and master requires the
+# `test (22)` / `test (latest)` checks. To get them to run, close and reopen
+# the PR (or push a commit to it from a human account), or pass a GitHub App
+# token instead of `github.token` to the `version` step below.
 
 jobs:
-  release:
+  version:
+    name: Select mode / version PR
     runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write # push the version commit to changeset-release/master
+      pull-requests: write # open or update the "Version Packages" PR
+    outputs:
+      mode: ${{ steps.mode.outputs.mode }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
+          persist-credentials: false
 
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6.1.1
 
-      - uses: actions/setup-node@v4
+      # No dependency cache in privileged jobs (cache-poisoning risk).
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
-          node-version: 22
-          cache: pnpm
-          cache-dependency-path: pnpm-lock.yaml
-          registry-url: 'https://registry.npmjs.org'
+          node-version: 24
 
       - run: pnpm install --frozen-lockfile
 
-      - run: pnpm --filter @webmcp-schemas/lint exec playwright install --with-deps chromium
+      - name: Select mode
+        id: mode
+        uses: changesets/action/select-mode@ae32849d5ba541f9ae29e40e22a623bc13562f51 # v2.1.2
 
-      # Build first - see the comment in ci.yml: packages/runtime and
-      # storefront-demo resolve @webmcp-schemas/schemas via its built dist/
-      # output, which doesn't exist on a fresh checkout.
+      - name: Create or update the Version Packages PR
+        if: steps.mode.outputs.mode == 'version'
+        uses: changesets/action/version@ae32849d5ba541f9ae29e40e22a623bc13562f51 # v2.1.2
+        with:
+          github-token: ${{ github.token }}
+
+  publish:
+    name: Publish to npm
+    needs: version
+    if: needs.version.outputs.mode == 'publish'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read # checkout
+      id-token: write # npm trusted publishing + provenance
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6.1.1
+
+      # Intentionally no `registry-url`: it would write an .npmrc that
+      # references NODE_AUTH_TOKEN and can interfere with OIDC.
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+
+      - name: Toolchain versions
+        run: |
+          node --version
+          npm --version
+          pnpm --version
+
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm exec changeset --version
+
+      # packages/runtime and the demo resolve @webmcp-schemas/schemas via its
+      # built dist/ output, which doesn't exist on a fresh checkout.
       - run: pnpm run build
 
-      - run: pnpm run lint
-
-      - run: pnpm run typecheck
-
-      - run: pnpm run test
-
-      # The `secrets` context can't be referenced directly in an `if:`
-      # condition (GitHub Actions rejects the workflow file entirely if you
-      # try - caught by actionlint, not by plain YAML validation). Route it
-      # through env: on a run step instead (secrets ARE allowed in env:),
-      # writing only a derived true/false to GITHUB_OUTPUT - never the
-      # secret value itself - then gate the next step on that output.
-      - name: Check whether NPM_TOKEN is set
-        id: check_npm_token
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: |
-          if [ -n "$NPM_TOKEN" ]; then
-            echo "has_token=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "has_token=false" >> "$GITHUB_OUTPUT"
-          fi
-
-      # changesets/action's publish step tries to publish any package
-      # version not yet in the npm registry on every push to master,
-      # regardless of whether a changeset exists - not just when a
-      # "Version Packages" PR is merged. Without this guard, every push
-      # fails loudly with a 404 until NPM_TOKEN is actually set. Skip the
-      # whole step until that secret exists, rather than failing on every
-      # commit in the meantime.
-      - name: Create release PR or publish to npm
-        if: steps.check_npm_token.outputs.has_token == 'true'
-        uses: changesets/action@v1
+      # Tags and GitHub releases are off: creating them needs `contents:
+      # write`, and this job is kept to `contents: read` + `id-token: write`.
+      - name: Publish to npm
+        uses: changesets/action/publish@ae32849d5ba541f9ae29e40e22a623bc13562f51 # v2.1.2
         with:
-          publish: pnpm release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NPM_CONFIG_PROVENANCE: true
+          create-github-releases: false
+          push-git-tags: false
