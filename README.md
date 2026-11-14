@@ -5,7 +5,7 @@
 > from Chrome 149 — its root registration object only recently moved from
 > `navigator.modelContext` to `document.modelContext`, and the rest of the
 > API can still change. This registry, and the packages built on it, will
-> move with it. Nothing here is published to npm yet — see
+> move with it. The packages are published to npm as 0.x releases — see
 > [Status](#status) below.
 
 If one retailer registers a `search_products` tool, another registers
@@ -120,8 +120,19 @@ standards.
 
 ## Status
 
-Nothing in this repo is published to npm yet. To try it, clone and
-build locally:
+The packages are published on npm as experimental 0.x releases (a minor
+version bump may contain breaking changes):
+
+- [`@webmcp-schemas/schemas`](https://www.npmjs.com/package/@webmcp-schemas/schemas)
+- [`@webmcp-schemas/runtime`](https://www.npmjs.com/package/@webmcp-schemas/runtime)
+- [`@webmcp-schemas/lint`](https://www.npmjs.com/package/@webmcp-schemas/lint)
+
+```bash
+npm i @webmcp-schemas/schemas @webmcp-schemas/runtime
+```
+
+WebMCP is still a draft spec, so expect the API to keep shifting. To
+work on the repo itself, clone and build locally:
 
 ```bash
 git clone https://github.com/Kshitijijari09/webmcp-schemas.git

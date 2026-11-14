@@ -3,15 +3,46 @@
   "version": "0.1.0",
   "description": "Registers canonical WebMCP schemas on top of the WebMCP polyfill (registerCanonical and friends).",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kshitijijari09/webmcp-schemas.git",
+    "directory": "packages/runtime"
+  },
+  "homepage": "https://github.com/Kshitijijari09/webmcp-schemas/tree/master/packages/runtime#readme",
+  "bugs": {
+    "url": "https://github.com/Kshitijijari09/webmcp-schemas/issues"
+  },
+  "keywords": [
+    "webmcp",
+    "mcp",
+    "ai-agents",
+    "json-schema",
+    "runtime",
+    "validation",
+    "tool-registration",
+    "typescript"
+  ],
+  "engines": {
+    "node": ">=22.13"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
     }
   },
   "files": [

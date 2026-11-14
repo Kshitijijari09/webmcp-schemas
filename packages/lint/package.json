@@ -3,6 +3,32 @@
   "version": "0.1.0",
   "description": "webmcp-lint: checks a site's WebMCP tool registrations against the canonical schema registry.",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kshitijijari09/webmcp-schemas.git",
+    "directory": "packages/lint"
+  },
+  "homepage": "https://github.com/Kshitijijari09/webmcp-schemas/tree/master/packages/lint#readme",
+  "bugs": {
+    "url": "https://github.com/Kshitijijari09/webmcp-schemas/issues"
+  },
+  "keywords": [
+    "webmcp",
+    "mcp",
+    "ai-agents",
+    "json-schema",
+    "linter",
+    "cli",
+    "playwright",
+    "static-analysis"
+  ],
+  "engines": {
+    "node": ">=22.13"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
@@ -12,9 +38,14 @@
   },
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
     }
   },
   "files": [

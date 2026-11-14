@@ -3,20 +3,55 @@
   "version": "0.1.0",
   "description": "Canonical JSON Schema registry for WebMCP tools, organised by industry vertical.",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kshitijijari09/webmcp-schemas.git",
+    "directory": "packages/schemas"
+  },
+  "homepage": "https://github.com/Kshitijijari09/webmcp-schemas/tree/master/packages/schemas#readme",
+  "bugs": {
+    "url": "https://github.com/Kshitijijari09/webmcp-schemas/issues"
+  },
+  "keywords": [
+    "webmcp",
+    "mcp",
+    "ai-agents",
+    "json-schema",
+    "schemas",
+    "retail",
+    "typescript"
+  ],
+  "engines": {
+    "node": ">=22.13"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
     },
     "./retail": {
-      "types": "./dist/retail.d.ts",
-      "import": "./dist/retail.js",
-      "require": "./dist/retail.cjs"
+      "import": {
+        "types": "./dist/retail.d.ts",
+        "default": "./dist/retail.js"
+      },
+      "require": {
+        "types": "./dist/retail.d.cts",
+        "default": "./dist/retail.cjs"
+      }
     }
   },
   "files": [

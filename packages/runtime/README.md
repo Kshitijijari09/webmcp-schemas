@@ -1,5 +1,7 @@
 # @webmcp-schemas/runtime
 
+> **Stability: 0.x, experimental.** This package tracks the WebMCP Draft Community Group Report, which is still changing. While the version is 0.x, a minor version bump may contain breaking changes.
+
 Registers canonical WebMCP schemas on top of the existing
 `@mcp-b/webmcp-polyfill` (a `peerDependency`, never bundled) — never
 reimplements the polyfill.

@@ -39,6 +39,19 @@ jobs:
       # clean tree (no dist/ anywhere).
       - run: pnpm run build
 
+      - name: Check package exports (publint + attw)
+        run: |
+          set -euo pipefail
+          for pkg in schemas runtime lint; do
+            echo "::group::$pkg"
+            pnpm exec publint "packages/$pkg" --strict --pack pnpm
+            dest="$RUNNER_TEMP/packs/$pkg"
+            mkdir -p "$dest"
+            (cd "packages/$pkg" && pnpm pack --pack-destination "$dest")
+            pnpm exec attw "$dest"/*.tgz --profile node16 --format table-flipped --no-emoji
+            echo "::endgroup::"
+          done
+
       - run: pnpm run lint
 
       - run: pnpm run typecheck

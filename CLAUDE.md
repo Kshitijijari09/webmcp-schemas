@@ -133,6 +133,10 @@ no per-schema-file version field.
 - Adding a new tool or industry: **minor**.
 - Fixing a description/typo: **patch**.
 
+**Versioning policy for 0.x:** while packages are below 1.0, a minor
+bump may contain breaking changes (the breaking-change rules above
+still describe what would be major after 1.0).
+
 This keeps version resolution trivial (one version, one npm install)
 at the cost of forcing unrelated industries to share a major-version
 bump when any one of them has a breaking change. Acceptable at this
