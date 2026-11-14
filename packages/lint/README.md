@@ -1,5 +1,7 @@
 # @webmcp-schemas/lint
 
+> **Stability: 0.x, experimental.** This package tracks the WebMCP Draft Community Group Report, which is still changing. While the version is 0.x, a minor version bump may contain breaking changes.
+
 `webmcp-lint` checks a site's registered WebMCP tools against the
 canonical schema registry (`@webmcp-schemas/schemas`).
 
