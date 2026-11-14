@@ -37,7 +37,7 @@ jobs:
       - name: Build the schemas, runtime, and demo packages
         run: pnpm --filter @webmcp-schemas/schemas... --filter @webmcp-schemas/runtime... --filter storefront-demo run build
 
-      - uses: actions/configure-pages@v5
+      - uses: actions/configure-pages@v6
 
       - uses: actions/upload-pages-artifact@v3
         with:
